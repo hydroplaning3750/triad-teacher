@@ -1,3 +1,4 @@
 export enum ScaleMode {
-    Major
+    Major = "Major",
+    Minor = "Minor"
 }

@@ -343,12 +343,17 @@
         {{title}}
       </h1>
       <body>
-        <mat-slider min="1" max="100" step="1" value="1"></mat-slider>
-        <mat-radio-group>
-            <mat-radio-button>Test</mat-radio-button>
-            <mat-radio-button>Test2</mat-radio-button>
+        <mat-radio-group class="radio-group">
+                <mat-radio-button class="radio-button" *ngFor="let key of keys" (change)="onKeyChange(key)">
+                    {{key}}
+                </mat-radio-button>
         </mat-radio-group>
-          <li *ngFor="let t of tmp"> {{t.toString()}} </li>
+        <mat-radio-group class="radio-group">
+            <mat-radio-button class="radio-button" *ngFor="let mode of modes" (change)="onModeChange(mode)">
+                {{mode}}
+            </mat-radio-button>
+    </mat-radio-group>
+        <li *ngFor="let degree of degrees"> {{degree.toString()}} </li>
       </body>
   </div>
 

@@ -8,7 +8,7 @@ export class DataService {
     readonly ALL_NOTES: string[];
 
     constructor() { 
-        this.ALL_NOTES = ["A", "A# Bb", "B", "C", "C# Db", "D", "D# Eb", "E", "F", "F# Gb", "G", "G# Ab"];
+        this.ALL_NOTES = ["A", "A# / Bb", "B", "C", "C# / Db", "D", "D# / Eb", "E", "F", "F# / Gb", "G", "G# / Ab"];
     }
 
     getScaleByKey(key: Key, mode: ScaleMode): string[] {
@@ -30,16 +30,17 @@ export class DataService {
         let notesAfterTonic: string[] = this.ALL_NOTES.slice(this.ALL_NOTES.indexOf(key.toString()), this.ALL_NOTES.length);
 
         let sortedNotes: string[] = notesAfterTonic.concat(notesBeforeTonic);
-        console.log("SORTED NOTES FOR KEY OF " + key.toString() + " = " + sortedNotes);
         return sortedNotes;
     }
 
     private getScaleStepsByMode(mode: ScaleMode): number[] {
-        let scaleSteps: number[];
+        let scaleSteps: ScaleSteps[];
         switch (mode) {
             case ScaleMode.Major:
                 scaleSteps = [ScaleSteps.Root, ScaleSteps.Whole, ScaleSteps.Whole, ScaleSteps.Half, ScaleSteps.Whole, ScaleSteps.Whole, ScaleSteps.Whole, ScaleSteps.Half];
                 break;
+            default:
+                scaleSteps = [];
         }
 
         return scaleSteps;
