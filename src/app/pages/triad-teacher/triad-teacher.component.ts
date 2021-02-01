@@ -1,14 +1,14 @@
-import { typeWithParameters } from '@angular/compiler/src/render3/util';
-import { Component } from '@angular/core';
-import { Key } from './enums/key';
-import { ScaleMode } from './enums/scale-mode';
-import { DataService } from './services/data.service';
+import { Component, OnInit } from '@angular/core';
+import { Key } from 'src/app/enums/key';
+import { ScaleMode } from 'src/app/enums/scale-mode';
+import { DataService } from 'src/app/services/data.service';
+
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss']
+  selector: 'app-triad-teacher',
+  templateUrl: './triad-teacher.component.html',
+  styleUrls: ['./triad-teacher.component.scss']
 })
-export class AppComponent {
+export class TriadTeacherComponent implements OnInit {
     private _currentKey: Key;
     private _currentMode: ScaleMode;
 
@@ -27,6 +27,10 @@ export class AppComponent {
         this.degrees = this._dataSvc.getScaleByKey(this._currentKey, ScaleMode.Major);
     }
 
+    ngOnInit() {
+        
+    }
+
     onKeyChange(key: Key) {
         this._currentKey = key;
         this.refreshDegrees();
@@ -40,4 +44,5 @@ export class AppComponent {
     private refreshDegrees() {
         this.degrees = this._dataSvc.getScaleByKey(this._currentKey, this._currentMode);
     }
+
 }
