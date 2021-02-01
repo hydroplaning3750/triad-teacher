@@ -7,12 +7,12 @@ import { DataService } from './services/data.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatRadioModule } from '@angular/material/radio';
-import { TriadTeacherComponent } from './pages/triad-teacher/triad-teacher.component';
+import { ScaleDictionaryComponent } from './pages/scale-dictionary/scale-dictionary.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TriadTeacherComponent
+    ScaleDictionaryComponent
   ],
   imports: [
     BrowserModule,

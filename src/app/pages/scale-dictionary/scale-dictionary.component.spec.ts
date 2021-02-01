@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TriadTeacherComponent } from './triad-teacher.component';
+import { ScaleDictionaryComponent } from './scale-dictionary.component';
 
-describe('TriadTeacherComponent', () => {
-  let component: TriadTeacherComponent;
-  let fixture: ComponentFixture<TriadTeacherComponent>;
+describe('ScaleDictionaryComponent', () => {
+  let component: ScaleDictionaryComponent;
+  let fixture: ComponentFixture<ScaleDictionaryComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TriadTeacherComponent ]
+      declarations: [ ScaleDictionaryComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TriadTeacherComponent);
+    fixture = TestBed.createComponent(ScaleDictionaryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

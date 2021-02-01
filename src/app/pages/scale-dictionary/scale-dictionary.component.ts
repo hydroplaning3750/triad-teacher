@@ -4,15 +4,15 @@ import { ScaleMode } from 'src/app/enums/scale-mode';
 import { DataService } from 'src/app/services/data.service';
 
 @Component({
-  selector: 'app-triad-teacher',
-  templateUrl: './triad-teacher.component.html',
-  styleUrls: ['./triad-teacher.component.scss']
+  selector: 'app-scale-dictionary',
+  templateUrl: './scale-dictionary.component.html',
+  styleUrls: ['./scale-dictionary.component.scss']
 })
-export class TriadTeacherComponent implements OnInit {
+export class ScaleDictionaryComponent implements OnInit {
     private _currentKey: Key;
     private _currentMode: ScaleMode;
 
-    title = 'triad-teacher';
+    title = 'Scale Dictionary';
     degrees: string[];
     keys: Key[];
     modes: ScaleMode[];

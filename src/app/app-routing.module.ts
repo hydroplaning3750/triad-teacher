@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TriadTeacherComponent } from './pages/triad-teacher/triad-teacher.component';
+import { ScaleDictionaryComponent } from './pages/scale-dictionary/scale-dictionary.component';
 
 const routes: Routes = [
-    { path: 'pages/triad-teacher', component: TriadTeacherComponent }
+    { path: 'pages/scale-dictionary', component: ScaleDictionaryComponent }
   ];
 
 @NgModule({
