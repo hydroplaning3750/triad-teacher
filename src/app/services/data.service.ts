@@ -39,6 +39,9 @@ export class DataService {
             case ScaleMode.Major:
                 scaleSteps = [ScaleSteps.Root, ScaleSteps.Whole, ScaleSteps.Whole, ScaleSteps.Half, ScaleSteps.Whole, ScaleSteps.Whole, ScaleSteps.Whole, ScaleSteps.Half];
                 break;
+            case ScaleMode.Minor:
+                scaleSteps = [ScaleSteps.Root, ScaleSteps.Whole, ScaleSteps.Half, ScaleSteps.Whole, ScaleSteps.Whole, ScaleSteps.Half, ScaleSteps.Whole, ScaleSteps.Whole];
+                break;
             default:
                 scaleSteps = [];
         }

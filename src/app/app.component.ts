@@ -1,5 +1,5 @@
+import { typeWithParameters } from '@angular/compiler/src/render3/util';
 import { Component } from '@angular/core';
-import { MatRadioChange } from '@angular/material/radio';
 import { Key } from './enums/key';
 import { ScaleMode } from './enums/scale-mode';
 import { DataService } from './services/data.service';
@@ -9,25 +9,35 @@ import { DataService } from './services/data.service';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+    private _currentKey: Key;
+    private _currentMode: ScaleMode;
+
     title = 'triad-teacher';
     degrees: string[];
     keys: Key[];
     modes: ScaleMode[];
-    currentKey: Key;
 
     constructor(private _dataSvc: DataService) {
         this.keys = [Key.A, Key.B, Key.C, Key.D, Key.E, Key.F, Key.G];
+        this._currentKey = this.keys[0];
+
         this.modes = [ScaleMode.Major, ScaleMode.Minor];
-        this.currentKey = this.keys[0];
-        this.degrees = this._dataSvc.getScaleByKey(this.currentKey, ScaleMode.Major);
+        this._currentMode = this.modes[0];
+
+        this.degrees = this._dataSvc.getScaleByKey(this._currentKey, ScaleMode.Major);
     }
 
     onKeyChange(key: Key) {
-        this.currentKey = key;
-        this.degrees = this._dataSvc.getScaleByKey(this.currentKey, ScaleMode.Major);
+        this._currentKey = key;
+        this.refreshDegrees();
     }
 
     onModeChange(mode: ScaleMode) {
-        console.log("MODE CHANGE " + mode);
+        this._currentMode = mode;
+        this.refreshDegrees();
+    }
+
+    private refreshDegrees() {
+        this.degrees = this._dataSvc.getScaleByKey(this._currentKey, this._currentMode);
     }
 }
