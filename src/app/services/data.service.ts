@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ChordType } from '../enums/chord-type';
 import { Key } from '../enums/key';
 import { ScaleMode } from '../enums/scale-mode';
 import { ScaleSteps } from '../enums/scale-steps';
@@ -11,15 +12,20 @@ export class DataService {
         this.ALL_NOTES = ["A", "A# / Bb", "B", "C", "C# / Db", "D", "D# / Eb", "E", "F", "F# / Gb", "G", "G# / Ab"];
     }
 
-    getScaleByKey(key: Key, mode: ScaleMode): string[] {
+    getScaleByKey(key: Key, mode: ScaleMode, chord: ChordType): string[] {
         let scaleNotes: string[] = [];
 
         let allNotes: string[] = this.sortNotesByKey(key);
-        let steps: number[] = this.getScaleStepsByMode(mode);
-        let index: number = steps[0];        
+        let steps: number[] = this.getScaleStepsByMode(mode, chord);
+        let index: number = steps[0];
+
         for (let i = 0; i < steps.length - 1; i++) {
             index += steps[i];
             scaleNotes.push(allNotes[index]);
+        }
+
+        if (chord != ChordType.None) {
+            scaleNotes = this.filterNotesByChordType(scaleNotes, chord);
         }
 
         return scaleNotes;
@@ -47,5 +53,32 @@ export class DataService {
         }
 
         return scaleSteps;
+    }
+
+    private getFilterByChordType(chord: ChordType): number[] {
+        let filter: number[];
+        switch (chord) {
+            case ChordType.Triad:
+                filter = [1, 3, 5];
+                break;
+            default:
+                filter = [];
+        }
+
+        return filter;
+    }
+
+    private filterNotesByChordType(notes: string[], chord: ChordType): string[] {
+        let filter: number[] = this.getFilterByChordType(chord);
+
+        let filteredNotes: string[] = [];
+        for (let i = 0; i < notes.length - 1; i++) {
+            let adjustedIndex: number = i + 1; //Account for zero-based indexing
+            if (filter.includes(adjustedIndex)) {
+                filteredNotes.push(notes[i]);
+            }
+        }
+
+        return filteredNotes;
     }
 }
