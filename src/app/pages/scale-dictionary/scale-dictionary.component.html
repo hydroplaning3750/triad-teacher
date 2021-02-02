@@ -4,6 +4,9 @@
     </h1>
 
     <body>
+        <mat-grid-list cols="2" rowHeight="2:1">
+            <mat-grid-tile *ngFor="let degree of degrees">{{degree.toString()}}</mat-grid-tile>
+         </mat-grid-list>
         <mat-radio-group class="radio-group">
             <mat-radio-button class="radio-button" *ngFor="let key of keys" (change)="onKeyChange(key)">
                 {{key}}
@@ -19,6 +22,9 @@
                 {{chord}}
             </mat-radio-button>
         </mat-radio-group>
-        <li *ngFor="let degree of degrees"> {{degree.toString()}} </li>
+        <br/><br/><br/><br/><br/>
+            <!-- <mat-list>
+                <mat-list-item *ngFor="let degree of degrees">{{degree.toString()}}</mat-list-item>
+            </mat-list> -->
     </body>
 </div>

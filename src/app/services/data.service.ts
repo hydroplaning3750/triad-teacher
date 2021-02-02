@@ -3,6 +3,7 @@ import { ChordType } from '../enums/chord-type';
 import { Key } from '../enums/key';
 import { ScaleMode } from '../enums/scale-mode';
 import { ScaleSteps } from '../enums/scale-steps';
+import { ScaleDegree } from '../interfaces/scale-degree';
 
 @Injectable()
 export class DataService {
@@ -16,7 +17,7 @@ export class DataService {
         let scaleNotes: string[] = [];
 
         let allNotes: string[] = this.sortNotesByKey(key);
-        let steps: number[] = this.getScaleStepsByMode(mode, chord);
+        let steps: number[] = this.getScaleStepsByMode(mode);
         let index: number = steps[0];
 
         for (let i = 0; i < steps.length - 1; i++) {
@@ -55,26 +56,29 @@ export class DataService {
         return scaleSteps;
     }
 
-    private getFilterByChordType(chord: ChordType): number[] {
-        let filter: number[];
+    private getDegreesByChordType(chord: ChordType): ScaleDegree[] {
+        let degrees: ScaleDegree[];
         switch (chord) {
             case ChordType.Triad:
-                filter = [1, 3, 5];
+                degrees = [{ degree: 1 }, { degree: 3 }, { degree: 5 }];
+                break;
+            case ChordType.Major7:
+                degrees = [{ degree: 1 }, { degree: 3 }, { degree: 5 }, { degree: 7 }];
                 break;
             default:
-                filter = [];
+                degrees = [];
         }
 
-        return filter;
+        return degrees;
     }
 
     private filterNotesByChordType(notes: string[], chord: ChordType): string[] {
-        let filter: number[] = this.getFilterByChordType(chord);
+        let degrees: ScaleDegree[] = this.getDegreesByChordType(chord);
 
         let filteredNotes: string[] = [];
-        for (let i = 0; i < notes.length - 1; i++) {
+        for (let i = 0; i <= notes.length - 1; i++) {
             let adjustedIndex: number = i + 1; //Account for zero-based indexing
-            if (filter.includes(adjustedIndex)) {
+            if (degrees.map(f => f.degree).includes(adjustedIndex)) {
                 filteredNotes.push(notes[i]);
             }
         }
