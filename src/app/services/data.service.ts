@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ChordType } from '../enums/chord-type';
+import { DegreeModifier } from '../enums/degree-modifier';
 import { Key } from '../enums/key';
 import { ScaleMode } from '../enums/scale-mode';
 import { ScaleSteps } from '../enums/scale-steps';
@@ -62,6 +63,9 @@ export class DataService {
             case ChordType.Triad:
                 degrees = [{ degree: 1 }, { degree: 3 }, { degree: 5 }];
                 break;
+            case ChordType.Dominant7:
+                degrees = [{ degree: 1 }, { degree: 3 }, { degree: 5 }, { degree: 7, modifier: DegreeModifier.Flat }];
+                break;
             case ChordType.Major7:
                 degrees = [{ degree: 1 }, { degree: 3 }, { degree: 5 }, { degree: 7 }];
                 break;
@@ -78,11 +82,26 @@ export class DataService {
         let filteredNotes: string[] = [];
         for (let i = 0; i <= notes.length - 1; i++) {
             let adjustedIndex: number = i + 1; //Account for zero-based indexing
-            if (degrees.map(f => f.degree).includes(adjustedIndex)) {
-                filteredNotes.push(notes[i]);
+
+            let correspondingDegree: ScaleDegree = degrees.find(d => d.degree === adjustedIndex) as ScaleDegree;
+            if (correspondingDegree) {
+                let note: string = notes[i];
+
+                //Account for flat/sharps by getting next/previous note in octave
+                if (correspondingDegree.modifier === DegreeModifier.Flat) {
+                    note = this.noteToFlat(note)
+                }
+
+                filteredNotes.push(note);
             }
         }
 
         return filteredNotes;
+    }
+
+    private noteToFlat(note: string): string {  //Flats are halfstep down
+        let noteIndex: number = this.ALL_NOTES.indexOf(note);
+        let flatNote: string = this.ALL_NOTES[noteIndex - 1];
+        return flatNote;
     }
 }

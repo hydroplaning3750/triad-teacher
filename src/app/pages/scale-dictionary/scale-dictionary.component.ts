@@ -12,7 +12,9 @@ import { DataService } from 'src/app/services/data.service';
 export class ScaleDictionaryComponent implements OnInit {
     private _currentKey: Key;
     private _currentMode: ScaleMode;
-    private _currentChord: ChordType;
+    currentChord: ChordType;
+
+    tmp: string = "";
 
     title = 'Scale Dictionary';
     degrees: string[];
@@ -28,9 +30,9 @@ export class ScaleDictionaryComponent implements OnInit {
         this._currentMode = this.modes[0];
 
         this.chordTypes = [ChordType.None, ChordType.Triad, ChordType.Dominant7, ChordType.Major7];
-        this._currentChord = this.chordTypes[0];
+        this.currentChord = this.chordTypes[0];
 
-        this.degrees = this._dataSvc.getScaleByKey(this._currentKey, this._currentMode, this._currentChord);
+        this.degrees = this._dataSvc.getScaleByKey(this._currentKey, this._currentMode, this.currentChord);
     }
 
     ngOnInit() {
@@ -38,7 +40,7 @@ export class ScaleDictionaryComponent implements OnInit {
     }
 
     private refreshDegrees() {
-        this.degrees = this._dataSvc.getScaleByKey(this._currentKey, this._currentMode, this._currentChord);
+        this.degrees = this._dataSvc.getScaleByKey(this._currentKey, this._currentMode, this.currentChord);
     }
 
     onKeyChange(key: Key) {
@@ -52,7 +54,7 @@ export class ScaleDictionaryComponent implements OnInit {
     }
 
     onChordTypeChange(chord: ChordType) {
-        this._currentChord = chord;
+        this.currentChord = chord;
         this.refreshDegrees();
     }
 }
